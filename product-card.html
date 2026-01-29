@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produits - Qoffa Smart</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            padding: 30px 20px;
+        }
+
+        /* Conteneur principal de la carte */
+        .wd-product {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        /* Wrapper de la carte */
+        .product-wrapper {
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-wrapper:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Image du produit */
+        .product-element-top {
+            position: relative;
+            overflow: hidden;
+            background-color: #f0f0f0;
+            height: 200px;
+        }
+
+        .product-image-link {
+            display: block;
+            line-height: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .product-image-link img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .product-wrapper:hover .product-image-link img {
+            transform: scale(1.05);
+        }
+
+        /* Informations du produit */
+        .product-element-bottom {
+            padding: 15px;
+        }
+
+        /* Titre du produit */
+        .wd-entities-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .wd-entities-title a {
+            color: #333;
+            text-decoration: none;
+        }
+
+        .wd-entities-title a:hover {
+            color: #82BB2E;
+        }
+
+        /* Catégorie */
+        .wd-product-cats {
+            font-size: 12px;
+            color: #777;
+            margin-bottom: 8px;
+        }
+
+        .wd-product-cats a {
+            color: #777;
+            text-decoration: none;
+        }
+
+        .wd-product-cats a:hover {
+            color: #82BB2E;
+        }
+
+        /* Prix */
+        .wrap-price {
+            margin-bottom: 15px;
+        }
+
+        .price {
+            font-size: 18px;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        .woocommerce-price-amount {
+            color: #82BB2E;
+        }
+
+        /* Bouton Ajouter au panier */
+        .wd-add-btn-replace {
+            margin-bottom: 15px;
+        }
+
+        .button.add_to_cart_button {
+            background-color: #82BB2E;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            display: block;
+            width: 100%;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .button.add_to_cart_button:hover {
+            background-color: #73a329;
+        }
+
+        /* Description au survol */
+        .fade-in-block {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease;
+            max-height: 0;
+            overflow: hidden;
+        }
+
+        .product-wrapper:hover .fade-in-block {
+            opacity: 1;
+            visibility: visible;
+            max-height: 200px;
+        }
+
+        .hover-content-inner {
+            font-size: 13px;
+            color: #555;
+            line-height: 1.4;
+            padding: 10px 0;
+            border-top: 1px solid #eee;
+        }
+
+        /* Style pour la grille */
+        .products.wd-grid-g {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .products.wd-grid-g {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .products.wd-grid-g {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="products wd-grid-g">
+        <!-- Produit 1 -->
+        <div class="wd-product">
+            <div class="product-wrapper">
+                <div class="product-element-top">
+                    <a href="produit-1.html" class="product-image-link">
+                        <img src="https://via.placeholder.com/250x200/e8eef5/999?text=Poivron" alt="Poivron Rouge Drago" />
+                    </a>
+                </div>
+                <div class="product-element-bottom">
+                    <h3 class="wd-entities-title">
+                        <a href="produit-1.html">POIVRON ROUGE DRAGO</a>
+                    </h3>
+                    <div class="wd-product-cats">
+                        <a href="categorie-legumes.html">Légumes</a>
+                    </div>
+                    <div class="wrap-price">
+                        <span class="price"><span class="woocommerce-price-amount">19,00 DH</span></span>
+                    </div>
+                    <div class="wd-add-btn-replace">
+                        <a href="?add-to-cart=1" class="button add_to_cart_button">Ajouter au panier</a>
+                    </div>
+                    <div class="fade-in-block">
+                        <div class="hover-content-inner">
+                            <p>Poivron rouge frais et savoureux, idéal pour vos recettes culinaires.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Produit 2 -->
+        <div class="wd-product">
+            <div class="product-wrapper">
+                <div class="product-element-top">
+                    <a href="produit-2.html" class="product-image-link">
+                        <img src="https://via.placeholder.com/250x200/e8eef5/999?text=Tomate" alt="Tomate Bio Premium" />
+                    </a>
+                </div>
+                <div class="product-element-bottom">
+                    <h3 class="wd-entities-title">
+                        <a href="produit-2.html">TOMATE BIO PREMIUM</a>
+                    </h3>
+                    <div class="wd-product-cats">
+                        <a href="categorie-legumes.html">Légumes</a>
+                    </div>
+                    <div class="wrap-price">
+                        <span class="price"><span class="woocommerce-price-amount">15,50 DH</span></span>
+                    </div>
+                    <div class="wd-add-btn-replace">
+                        <a href="?add-to-cart=2" class="button add_to_cart_button">Ajouter au panier</a>
+                    </div>
+                    <div class="fade-in-block">
+                        <div class="hover-content-inner">
+                            <p>Tomate biologique cultivée naturellement, riche en saveur et nutriments.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Produit 3 -->
+        <div class="wd-product">
+            <div class="product-wrapper">
+                <div class="product-element-top">
+                    <a href="produit-3.html" class="product-image-link">
+                        <img src="https://via.placeholder.com/250x200/e8eef5/999?text=Aubergine" alt="Aubergine Violette" />
+                    </a>
+                </div>
+                <div class="product-element-bottom">
+                    <h3 class="wd-entities-title">
+                        <a href="produit-3.html">AUBERGINE VIOLETTE</a>
+                    </h3>
+                    <div class="wd-product-cats">
+                        <a href="categorie-legumes.html">Légumes</a>
+                    </div>
+                    <div class="wrap-price">
+                        <span class="price"><span class="woocommerce-price-amount">22,00 DH</span></span>
+                    </div>
+                    <div class="wd-add-btn-replace">
+                        <a href="?add-to-cart=3" class="button add_to_cart_button">Ajouter au panier</a>
+                    </div>
+                    <div class="fade-in-block">
+                        <div class="hover-content-inner">
+                            <p>Aubergine fraîche et tendre, parfaite pour vos plats méditerranéens.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Produit 4 -->
+        <div class="wd-product">
+            <div class="product-wrapper">
+                <div class="product-element-top">
+                    <a href="produit-4.html" class="product-image-link">
+                        <img src="https://via.placeholder.com/250x200/e8eef5/999?text=Carotte" alt="Carotte Fraîche Bio" />
+                    </a>
+                </div>
+                <div class="product-element-bottom">
+                    <h3 class="wd-entities-title">
+                        <a href="produit-4.html">CAROTTE FRAÎCHE BIO</a>
+                    </h3>
+                    <div class="wd-product-cats">
+                        <a href="categorie-legumes.html">Légumes</a>
+                    </div>
+                    <div class="wrap-price">
+                        <span class="price"><span class="woocommerce-price-amount">12,00 DH</span></span>
+                    </div>
+                    <div class="wd-add-btn-replace">
+                        <a href="?add-to-cart=4" class="button add_to_cart_button">Ajouter au panier</a>
+                    </div>
+                    <div class="fade-in-block">
+                        <div class="hover-content-inner">
+                            <p>Carottes biologiques croquantes et pleines de vitamines.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Produit 5 -->
+        <div class="wd-product">
+            <div class="product-wrapper">
+                <div class="product-element-top">
+                    <a href="produit-5.html" class="product-image-link">
+                        <img src="https://via.placeholder.com/250x200/e8eef5/999?text=Salade" alt="Salade Verdelle" />
+                    </a>
+                </div>
+                <div class="product-element-bottom">
+                    <h3 class="wd-entities-title">
+                        <a href="produit-5.html">SALADE VERDELLE</a>
+                    </h3>
+                    <div class="wd-product-cats">
+                        <a href="categorie-herbes.html">Herbes</a>
+                    </div>
+                    <div class="wrap-price">
+                        <span class="price"><span class="woocommerce-price-amount">8,50 DH</span></span>
+                    </div>
+                    <div class="wd-add-btn-replace">
+                        <a href="?add-to-cart=5" class="button add_to_cart_button">Ajouter au panier</a>
+                    </div>
+                    <div class="fade-in-block">
+                        <div class="hover-content-inner">
+                            <p>Salade fraîche et verte, parfaite pour vos repas légers et sains.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Produit 6 -->
+        <div class="wd-product">
+            <div class="product-wrapper">
+                <div class="product-element-top">
+                    <a href="produit-6.html" class="product-image-link">
+                        <img src="https://via.placeholder.com/250x200/e8eef5/999?text=Oignon" alt="Oignon Rouge" />
+                    </a>
+                </div>
+                <div class="product-element-bottom">
+                    <h3 class="wd-entities-title">
+                        <a href="produit-6.html">OIGNON ROUGE FRAIS</a>
+                    </h3>
+                    <div class="wd-product-cats">
+                        <a href="categorie-legumes.html">Légumes</a>
+                    </div>
+                    <div class="wrap-price">
+                        <span class="price"><span class="woocommerce-price-amount">10,75 DH</span></span>
+                    </div>
+                    <div class="wd-add-btn-replace">
+                        <a href="?add-to-cart=6" class="button add_to_cart_button">Ajouter au panier</a>
+                    </div>
+                    <div class="fade-in-block">
+                        <div class="hover-content-inner">
+                            <p>Oignons rouges frais, parfaits pour tous vos plats.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Gestion des clics sur le bouton "Ajouter au panier"
+        document.querySelectorAll('.button.add_to_cart_button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const productTitle = this.closest('.wd-product').querySelector('.wd-entities-title a').textContent;
+                const productPrice = this.closest('.wd-product').querySelector('.woocommerce-price-amount').textContent;
+                
+                alert(`"${productTitle}" (${productPrice}) a été ajouté au panier!`);
+            });
+        });
+    </script>
+</body>
+</html>

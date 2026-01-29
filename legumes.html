@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LePanier - LÉGUMES</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: #fff;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2a9d8f;
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .search-select {
+            padding: 8px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f5f5f5;
+            color: #666;
+        }
+
+        .contact-info {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #666;
+        }
+
+        .phone-icon {
+            background-color: #2a9d8f;
+            color: white;
+            padding: 5px;
+            border-radius: 50%;
+            font-size: 12px;
+        }
+
+        .help-text {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: #fff;
+            padding: 15px 0;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            justify-content: center;
+            gap: 25px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: #2a9d8f;
+        }
+
+        /* Main Content */
+        .main-content {
+            display: flex;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+        }
+
+        .sidebar-section {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+
+        .sidebar-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2a9d8f;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .sidebar-title i {
+            color: #2a9d8f;
+        }
+
+        .category-list,
+        .filter-list {
+            list-style: none;
+        }
+
+        .category-item,
+        .filter-item {
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #555;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-item {
+            cursor: pointer;
+        }
+
+        .filter-item:hover {
+            background-color: #f5f5f5;
+            padding-left: 10px;
+        }
+
+        .category-item:last-child,
+        .filter-item:last-child {
+            border-bottom: none;
+        }
+
+        .category-count {
+            background-color: #2a9d8f;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+        }
+
+        .filter-item.active {
+            color: #2a9d8f;
+            font-weight: bold;
+            background-color: #e8f5f3;
+            padding-left: 10px;
+        }
+
+        .filter-item.active::before {
+            content: '✓ ';
+            color: #2a9d8f;
+            font-weight: bold;
+        }
+
+        .filter-count {
+            background-color: #2a9d8f;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 11px;
+            margin-left: auto;
+        }
+
+        /* Products Section */
+        .products-section {
+            flex: 1;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            background-color: #fff;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            color: #2a9d8f;
+            flex: 1;
+        }
+
+        .sort-select {
+            padding: 8px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #fff;
+            color: #666;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+
+        .sort-select:hover {
+            border-color: #2a9d8f;
+        }
+
+        .products-count {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .product-card {
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background-color: #f5f5f5;
+        }
+
+        .product-info {
+            padding: 15px;
+        }
+
+        .product-name {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .product-subtitle {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .product-price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2a9d8f;
+            margin-bottom: 15px;
+        }
+
+        .add-to-cart {
+            background-color: #f39c12;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            width: 100%;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+
+        .add-to-cart:hover {
+            background-color: #e67e22;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .empty-icon {
+            font-size: 60px;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
+
+        .empty-text {
+            color: #666;
+            font-size: 18px;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .sidebar {
+                width: 200px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+            }
+
+            .sidebar-section {
+                display: flex;
+                gap: 20px;
+                padding: 15px;
+            }
+
+            .sidebar-section > div:first-child {
+                flex: 1;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-menu {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-top">
+                <div class="logo">LePanier</div>
+                <div class="search-container">
+                    <select class="search-select">
+                        <option>CHOISIR UNE CAT...</option>
+                        <option>LÉGUMES</option>
+                        <option>FRUITS</option>
+                        <option>HERBES ET SALADES</option>
+                        <option>ÉPICERIES</option>
+                        <option>OLIVES</option>
+                    </select>
+                    <div class="contact-info">
+                        <span class="phone-icon">📞</span>
+                        <span>+212666665000</span>
+                    </div>
+                    <div class="help-text">Des Questions ?</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <ul class="nav-menu">
+                <li><a href="#">ACCUEIL</a></li>
+                <li><a href="#">LÉGUMES</a></li>
+                <li><a href="#">FRUITS</a></li>
+                <li><a href="#">HERBES ET SALADES</a></li>
+                <li><a href="#">ÉPICERIES</a></li>
+                <li><a href="#">OLIVES</a></li>
+                <li><a href="#">NOS PANIERS</a></li>
+                <li><a href="#">BLOG</a></li>
+                <li><a href="#">A Propos</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 class="section-title" style="margin-top: 30px; margin-bottom: 30px;">← LÉGUMES</h1>
+        
+        <div class="main-content">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <!-- Categories Section -->
+                <div class="sidebar-section">
+                    <h2 class="sidebar-title">
+                        <i class="fas fa-th"></i> NOS RAYONS
+                    </h2>
+                    <ul class="category-list">
+                        <li class="category-item">
+                            <span>ÉPICERIES</span>
+                            <span class="category-count">2</span>
+                        </li>
+                        <li class="category-item">
+                            <span>FRUITS</span>
+                            <span class="category-count">21</span>
+                        </li>
+                        <li class="category-item">
+                            <span>HERBES ET SALADES</span>
+                            <span class="category-count">24</span>
+                        </li>
+                        <li class="category-item">
+                            <span>LÉGUMES</span>
+                            <span class="category-count">40</span>
+                        </li>
+                        <li class="category-item">
+                            <span>OLIVES</span>
+                            <span class="category-count">10</span>
+                        </li>
+                        <li class="category-item">
+                            <span>Surgelée</span>
+                            <span class="category-count">1</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Filters Section -->
+                <div class="sidebar-section">
+                    <h2 class="sidebar-title">
+                        <i class="fas fa-filter"></i> FILTRER PAR
+                    </h2>
+                    <ul class="filter-list" id="filtersList">
+                        <li class="filter-item active" data-filter="all">
+                            <span>Tous les légumes</span>
+                            <span class="filter-count" id="count-all">40</span>
+                        </li>
+                        <li class="filter-item" data-filter="green">
+                            <span>Légumes verts</span>
+                            <span class="filter-count" id="count-green">0</span>
+                        </li>
+                        <li class="filter-item" data-filter="root">
+                            <span>Légumes racines</span>
+                            <span class="filter-count" id="count-root">0</span>
+                        </li>
+                        <li class="filter-item" data-filter="fruit">
+                            <span>Légumes fruits</span>
+                            <span class="filter-count" id="count-fruit">0</span>
+                        </li>
+                        <li class="filter-item" data-filter="mushroom">
+                            <span>Champignons</span>
+                            <span class="filter-count" id="count-mushroom">0</span>
+                        </li>
+                    </ul>
+                </div>
+            </aside>
+
+            <!-- Products Section -->
+            <main class="products-section">
+                <div class="section-header">
+                    <h2 class="section-title">LÉGUMES</h2>
+                    <select class="sort-select" id="sortSelect">
+                        <option value="default">Tri par défaut</option>
+                        <option value="price-asc">Prix croissant</option>
+                        <option value="price-desc">Prix décroissant</option>
+                        <option value="name-asc">Nom A-Z</option>
+                    </select>
+                    <div class="products-count">
+                        <span id="productsCount">40</span> produits
+                    </div>
+                </div>
+
+                <div class="products-grid" id="vegetablesContainer">
+                    <!-- Les légumes seront insérés ici par JavaScript -->
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        // ============================
+        // DONNÉES - LÉGUMES COMPLÈTE AVEC SOUS-CATÉGORIES
+        // ============================
+        const vegetablesList = [
+            // Légumes verts / Green vegetables
+            { id: 101, name: 'قوق', subtitle: 'قوق طازج طري', price: 18, category: 'vegetables', subcategory: 'other', image: 'images/legumes/artichaut.png' },
+            { id: 102, name: 'دنجال', subtitle: 'دنجال بنفسجي طازج', price: 13, category: 'vegetables', subcategory: 'fruit', image: 'images/legumes/aubergine.png' },
+            { id: 103, name: 'باربا', subtitle: 'باربا طازجة طرية', price: 11, category: 'vegetables', subcategory: 'root', image: 'images/legumes/betterave.png' },
+            { id: 104, name: 'البروكلي', subtitle: 'البروكلي أخضر طازج', price: 16, category: 'vegetables', subcategory: 'green', image: 'images/legumes/brocoli.png' },
+            { id: 105, name: 'الخرشوف', subtitle: 'الخرشوف طازج', price: 20, category: 'vegetables', subcategory: 'other', image: 'images/legumes/cardon.png' },
+            { id: 106, name: 'جزر', subtitle: 'جزر برتقالي طازج حلو', price: 10, category: 'vegetables', subcategory: 'root', image: 'images/legumes/carotte.png' },
+            { id: 107, name: 'فطر أبيض', subtitle: 'فطر أبيض طازج', price: 25, category: 'vegetables', subcategory: 'mushroom', image: 'images/legumes/champignon_blanc.png' },
+            { id: 108, name: 'شوفلور', subtitle: 'شوفلور أبيض طازج', price: 17, category: 'vegetables', subcategory: 'green', image: 'images/legumes/choux_fleur.png' },
+            { id: 109, name: 'كروم خضراء', subtitle: 'كروم خضراء طازجة', price: 12, category: 'vegetables', subcategory: 'green', image: 'images/legumes/choux_vert.png' },
+            { id: 110, name: 'سفرجل', subtitle: 'سفرجل طازج', price: 22, category: 'vegetables', subcategory: 'other', image: 'images/legumes/coing.png' },
+            { id: 111, name: 'خيار', subtitle: 'خيار طازج مقرمش', price: 9, category: 'vegetables', subcategory: 'green', image: 'images/legumes/concombre.png' },
+            { id: 112, name: 'كرعة خضرة', subtitle: 'كرعة خضراء طرية', price: 14, category: 'vegetables', subcategory: 'green', image: 'images/legumes/courgette.png' },
+            { id: 113, name: 'كرعة مدورة', subtitle: 'كرعة مدورة خضراء', price: 15, category: 'vegetables', subcategory: 'green', image: 'images/legumes/courgette_ronde.png' },
+            { id: 114, name: 'بسباس', subtitle: 'بسباس طازج', price: 12, category: 'vegetables', subcategory: 'green', image: 'images/legumes/fenouil.png' },
+            { id: 115, name: 'فول', subtitle: 'فول طازج', price: 19, category: 'vegetables', subcategory: 'other', image: 'images/legumes/feves.png' },
+            { id: 116, name: 'سكينجبير', subtitle: 'سكينجبير طازج', price: 24, category: 'vegetables', subcategory: 'root', image: 'images/legumes/gingembre.png' },
+            { id: 117, name: 'لوبيا خضراء', subtitle: 'لوبيا خضراء طرية', price: 16, category: 'vegetables', subcategory: 'green', image: 'images/legumes/haricot_vert.png' },
+            { id: 118, name: 'لفت أبيض', subtitle: 'لفت أبيض طازج', price: 8, category: 'vegetables', subcategory: 'root', image: 'images/legumes/navet_blanc.png' },
+            { id: 119, name: 'لفت أصفر', subtitle: 'لفت أصفر طازج', price: 9, category: 'vegetables', subcategory: 'root', image: 'images/legumes/navet_jaune.png' },
+            { id: 120, name: 'لفت', subtitle: 'لفت أحمر طازج', price: 10, category: 'vegetables', subcategory: 'root', image: 'images/legumes/navet_rouge.png' },
+            { id: 121, name: 'بصلة', subtitle: 'بصل أبيض طازج', price: 6, category: 'vegetables', subcategory: 'root', image: 'images/legumes/oignon_blanc.png' },
+            { id: 122, name: 'بصلة حمراء', subtitle: 'بصل أحمر طازج', price: 7, category: 'vegetables', subcategory: 'root', image: 'images/legumes/oignon_rouge.png' },
+            { id: 123, name: 'بصلة خضارية', subtitle: 'بصل أحمر خضاري', price: 8, category: 'vegetables', subcategory: 'root', image: 'images/legumes/oignons_rouge.png' },
+            { id: 124, name: 'بطاطة حلوة', subtitle: 'بطاطة حلوة طازجة', price: 14, category: 'vegetables', subcategory: 'root', image: 'images/legumes/patate_douce.png' },
+            { id: 125, name: 'جلبانة', subtitle: 'جلبانة خضراء طازجة', price: 18, category: 'vegetables', subcategory: 'other', image: 'images/legumes/petits_pois.png' },
+            { id: 126, name: 'بورو', subtitle: 'بورو أخضر طازج', price: 11, category: 'vegetables', subcategory: 'green', image: 'images/legumes/poireau.png' },
+            { id: 127, name: 'فلفل أصفر', subtitle: 'فلفل أصفر طري', price: 15, category: 'vegetables', subcategory: 'fruit', image: 'images/legumes/poivron_jaune_drago.png' },
+            { id: 128, name: 'فلفل أحمر', subtitle: 'فلفل أحمر طري', price: 16, category: 'vegetables', subcategory: 'fruit', image: 'images/legumes/poivron_rouge_drago.png' },
+            { id: 129, name: 'فلفل أخضر', subtitle: 'فلفل أخضر طري', price: 13, category: 'vegetables', subcategory: 'green', image: 'images/legumes/poivron_vert.png' },
+            { id: 130, name: 'بطاطة بيضاء', subtitle: 'بطاطة بيضاء محلية', price: 8, category: 'vegetables', subcategory: 'root', image: 'images/legumes/pomme_de_terre_blanche.png' },
+            { id: 131, name: 'بطاطة صغيرة', subtitle: 'بطاطة صغيرة جديدة', price: 9, category: 'vegetables', subcategory: 'root', image: 'images/legumes/pomme_de_terre_nouvelle.png' },
+            { id: 132, name: 'البطاطس الحمراء', subtitle: 'بطاطس حمراء طازجة', price: 9, category: 'vegetables', subcategory: 'root', image: 'images/legumes/pomme_de_terre_rouge.png' },
+            { id: 133, name: 'اليقطين', subtitle: 'يقطين برتقالي طري', price: 12, category: 'vegetables', subcategory: 'fruit', image: 'images/legumes/potiron.png' },
+            { id: 134, name: 'فجل', subtitle: 'فجل أحمر طازج', price: 5, category: 'vegetables', subcategory: 'root', image: 'images/legumes/radis.png' },
+            { id: 135, name: 'مطيشة', subtitle: 'طماطم حمراء ناضجة', price: 12, category: 'vegetables', subcategory: 'fruit', image: 'images/legumes/tomate.png' },
+            { id: 136, name: 'طماطم كرزية حمراء', subtitle: 'طماطم كرزية حمراء حلوة', price: 20, category: 'vegetables', subcategory: 'fruit', image: 'images/legumes/tomate_cerise_rouge.png' }
+        ];
+
+        // ============================
+        // GESTION D'ÉTAT
+        // ============================
+        const filterState = {
+            currentFilter: 'all',
+            currentSort: 'default',
+            filteredList: [...vegetablesList]
+        };
+
+        // ============================
+        // FONCTIONS DE FILTRAGE
+        // ============================
+        
+        /**
+         * Filtre les légumes selon la sous-catégorie sélectionnée
+         */
+        function filterBySubcategory(subcategory) {
+            if (subcategory === 'all') {
+                filterState.filteredList = [...vegetablesList];
+            } else {
+                filterState.filteredList = vegetablesList.filter(veg => veg.subcategory === subcategory);
+            }
+            filterState.currentFilter = subcategory;
+            applySort();
+            render();
+            updateFilterCounts();
+        }
+
+        // ============================
+        // FONCTIONS DE TRI
+        // ============================
+        
+        /**
+         * Trie les légumes selon le critère sélectionné
+         */
+        function applySort() {
+            const sort = filterState.currentSort;
+            
+            switch(sort) {
+                case 'price-asc':
+                    filterState.filteredList.sort((a, b) => a.price - b.price);
+                    break;
+                case 'price-desc':
+                    filterState.filteredList.sort((a, b) => b.price - a.price);
+                    break;
+                case 'name-asc':
+                    filterState.filteredList.sort((a, b) => a.name.localeCompare(b.name));
+                    break;
+                case 'default':
+                default:
+                    filterState.filteredList.sort((a, b) => a.id - b.id);
+                    break;
+            }
+        }
+
+        /**
+         * Change le critère de tri et réaffiche les produits
+         */
+        function handleSortChange(event) {
+            filterState.currentSort = event.target.value;
+            applySort();
+            render();
+        }
+
+        // ============================
+        // FONCTIONS D'AFFICHAGE
+        // ============================
+        
+        /**
+         * Affiche les légumes filtrés
+         */
+        function render() {
+            const container = document.getElementById('vegetablesContainer');
+            
+            if (filterState.filteredList.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1/-1;">
+                        <div class="empty-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <p class="empty-text">Aucun produit trouvé pour votre sélection</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = '';
+            
+            filterState.filteredList.forEach(vegetable => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                
+                productCard.innerHTML = `
+                    <img src="${vegetable.image}" 
+                         alt="${vegetable.name}" 
+                         class="product-image" 
+                         onerror="this.src='https://via.placeholder.com/300x200?text=No+Image'">
+                    <div class="product-info">
+                        <h3 class="product-name">${vegetable.name}</h3>
+                        <p class="product-subtitle">${vegetable.subtitle}</p>
+                        <div class="product-price">${vegetable.price}.00 DH</div>
+                        <button class="add-to-cart" onclick="addToCart(${vegetable.id})">
+                            <i class="fas fa-shopping-cart"></i> Ajouter Au Panier
+                        </button>
+                    </div>
+                `;
+                
+                container.appendChild(productCard);
+            });
+
+            // Mettre à jour le compteur
+            document.getElementById('productsCount').textContent = filterState.filteredList.length;
+        }
+
+        /**
+         * Met à jour les compteurs de filtres
+         */
+        function updateFilterCounts() {
+            const counts = {
+                all: vegetablesList.length,
+                green: vegetablesList.filter(v => v.subcategory === 'green').length,
+                root: vegetablesList.filter(v => v.subcategory === 'root').length,
+                fruit: vegetablesList.filter(v => v.subcategory === 'fruit').length,
+                mushroom: vegetablesList.filter(v => v.subcategory === 'mushroom').length
+            };
+
+            Object.keys(counts).forEach(key => {
+                const element = document.getElementById(`count-${key}`);
+                if (element) {
+                    element.textContent = counts[key];
+                }
+            });
+        }
+
+        // ============================
+        // GESTION DES ÉVÉNEMENTS
+        // ============================
+        
+        /**
+         * Initialise les event listeners
+         */
+        function setupEventListeners() {
+            // Filtre
+            document.querySelectorAll('.filter-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    // Retire la classe active de tous les éléments
+                    document.querySelectorAll('.filter-item').forEach(el => {
+                        el.classList.remove('active');
+                    });
+                    
+                    // Ajoute la classe active à l'élément cliqué
+                    this.classList.add('active');
+                    
+                    // Applique le filtre
+                    const filter = this.getAttribute('data-filter');
+                    filterBySubcategory(filter);
+                });
+            });
+
+            // Tri
+            const sortSelect = document.getElementById('sortSelect');
+            if (sortSelect) {
+                sortSelect.addEventListener('change', handleSortChange);
+            }
+        }
+
+        /**
+         * Ajoute un produit au panier
+         */
+        function addToCart(productId) {
+            const product = vegetablesList.find(v => v.id === productId);
+            if (product) {
+                alert(`✓ تمت إضافة ${product.name} إلى السلة!`);
+            }
+        }
+
+        // ============================
+        // INITIALISATION
+        // ============================
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            setupEventListeners();
+            updateFilterCounts();
+            render();
+        });
+    </script>
+</body>
+</html>

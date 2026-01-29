@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Homepage Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test-result { margin: 10px 0; padding: 10px; border-radius: 5px; }
+        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+    </style>
+</head>
+<body>
+    <h1>Premium Homepage Implementation Test</h1>
+    <div id="test-results"></div>
+
+    <script>
+        const tests = [
+            { name: 'Hero Section', selector: '#hero-premium', expected: true },
+            { name: 'Features Section', selector: '#features-premium', expected: true },
+            { name: 'Showcase Section', selector: '#showcase-premium', expected: true },
+            { name: 'Process Section', selector: '#process-premium', expected: true },
+            { name: 'Testimonials Section', selector: '#testimonials-premium', expected: true },
+            { name: 'Seasonal Section', selector: '#seasonal-premium', expected: true },
+            { name: 'Text Rotator', selector: '.text-rotator', expected: true },
+            { name: 'Live Stats', selector: '#liveUsers', expected: true },
+            { name: 'Product Carousel', selector: '#productCarouselTrack', expected: true },
+            { name: 'Countdown Timer', selector: '#days', expected: true }
+        ];
+
+        function runTests() {
+            const resultsDiv = document.getElementById('test-results');
+
+            tests.forEach(test => {
+                const element = document.querySelector(test.selector);
+                const exists = !!element;
+                const passed = exists === test.expected;
+
+                const resultDiv = document.createElement('div');
+                resultDiv.className = `test-result ${passed ? 'success' : 'error'}`;
+                resultDiv.textContent = `${passed ? '✓' : '✗'} ${test.name}: ${exists ? 'Found' : 'Not found'}`;
+                resultsDiv.appendChild(resultDiv);
+            });
+        }
+
+        // Load the main page content
+        fetch('index%20copie%20copie.html')
+            .then(response => response.text())
+            .then(html => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+
+                // Replace body content
+                document.body.innerHTML = doc.body.innerHTML;
+
+                // Run tests after a short delay to allow scripts to load
+                setTimeout(runTests, 1000);
+            })
+            .catch(error => {
+                document.getElementById('test-results').innerHTML =
+                    '<div class="test-result error">Failed to load main page: ' + error.message + '</div>';
+            });
+    </script>
+</body>
+</html>
